@@ -14,11 +14,12 @@ public class ToolsQAForm
     private final String PAGE_URL = "https://www.toolsqa.com/automation-practice-form";
     private final By halfLink = By.partialLinkText("Partial Link Test");
     private final By fullLink = By.linkText("Link Test");
+    private final By firstName = By.name("firstname");
+    private final By lastName = By.name("lastname");
     private final By expButtons = By.name("exp");
     private final By sexButtons = By.name("sex");
-    private final By continentsSelect = By.id("continentsSelect");
-
-
+    private final By continentsSelect = By.id("continents");
+    private final By selCommand = By.id("selenium_commands");
 
 
     public ToolsQAForm(WebDriver driver)
@@ -45,12 +46,43 @@ public class ToolsQAForm
         return driver.findElements(expButtons);
     }
 
-    public Select getContinents() {return new Select(driver.findElement(By.id("continents")));}
+    public Select getContinents() {return new Select(driver.findElement(continentsSelect));}
 
-    public void selectAndReturnText(Select select, int index)
+    public Select getSeleniumCommands(){return new Select(driver.findElement(selCommand));}
+
+    public String selectAndReturnText(Select select, int index)
     {
-        
+        select.selectByIndex(index);
+        return select.getFirstSelectedOption().getText();
     }
+
+    public void typeInNames(String input, boolean first)
+    {
+        if(first)
+        {
+            typeInName(input, firstName);
+        } else
+        {
+            typeInName(input, lastName);
+        }
+    }
+
+    private void typeInName(String input, By nameField)
+    {
+        driver.findElement(nameField).sendKeys(input);
+    }
+
+    private String readFirstName()
+    {
+        return driver.findElement(firstName).getAttribute("value");
+    }
+
+    private String readLasttName()
+    {
+        return driver.findElement(lastName).getAttribute("value");
+    }
+
+
 
 
 
