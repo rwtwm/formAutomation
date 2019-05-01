@@ -3,6 +3,7 @@ package com.sparta.waj.formaccess;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class ToolsQAForm
     private final By fullLink = By.linkText("Link Test");
     private final By expButtons = By.name("exp");
     private final By sexButtons = By.name("sex");
-    private final By continents = By.id("continents");
+    private final By continentsSelect = By.id("continentsSelect");
 
 
 
@@ -43,6 +44,15 @@ public class ToolsQAForm
     {
         return driver.findElements(expButtons);
     }
+
+    public Select getContinents() {return new Select(driver.findElement(By.id("continents")));}
+
+    public void selectAndReturnText(Select select, int index)
+    {
+        
+    }
+
+
 
 
 
